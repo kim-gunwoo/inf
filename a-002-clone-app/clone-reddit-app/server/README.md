@@ -58,3 +58,14 @@ $ npx tsc --init
 ```sh
 $ npx typeorm init
 ```
+
+### entity 생성
+
+- bcryptjs : 비밀번호를 암호화
+- class-validator : 데코레이터를 이용해서 요청에서오는 오브젝트의 프로퍼티를 검증
+- class-transformer : class-transformer를 사용하면 일반 개체를 클래스의 일부 인스턴스로 또는 그 반대로 변환할 수 있음
+
+```sh
+$ npm install bcryptjs class-validator class-transformer
+$ npm install @types/bcryptjs -D
+```
