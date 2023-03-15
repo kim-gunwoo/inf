@@ -1,38 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# client
 
-## Getting Started
+## tailwindcss
 
-First, run the development server:
+### tailwindcss init
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```sh
+# 모듈 설치
+$ npm i -D postcss-preset-env tailwindcss
+# Tailwind 설정 파일 생성
+$ npx tailwind init
+# PostCSS 빌드 적용을 위한 postcss 설정 파일 생성
+$ touch postcss.config.js
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### tailwind 와 postcss webpack preset을 plugins 에 넣어줍니다.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+# PostCSS란?
+- POST CSS는 우리의 CSS를 조금 더 현대적으로 바꿔주는 플러그인
+좀 더 풀어 설명하자면 POST CSS는 JS 플러그인을 사용하여 CSS를 변환시키는 툴
+- POST CSS는 언어가 아니라 자동으로 현대적인 CSS를 호환 가능하도록 변환시켜주는 플러그인일 뿐임
+- POST CSS는 CSS에 문제가 없는지 미리 확인해서 에러 로그를 준다.
+- PostCSS 자체는 아무 일도 하지 않음. 다만 다양한 플러그인과, 플러그인을 추가할 수 있음
+```
