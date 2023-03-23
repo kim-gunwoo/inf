@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth";
 const app = express();
 const PORT = 4000;
 const origin = "http://localhost:3000";
-app.use(cors({ origin }));
+app.use(cors({ origin, credentials: true }));
 
 app.use(express.json());
 app.use(morgan("dev"));
