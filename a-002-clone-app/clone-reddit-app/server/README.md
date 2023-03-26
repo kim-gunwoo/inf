@@ -69,3 +69,10 @@ $ npx typeorm init
 $ npm install bcryptjs class-validator class-transformer
 $ npm install @types/bcryptjs -D
 ```
+
+### cors 설정
+
+```sh
+$ npm install cors -—save
+$ npm i --save-dev @types/cors
+```
