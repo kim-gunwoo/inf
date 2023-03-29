@@ -1,6 +1,9 @@
-import { validate } from "class-validator";
+import { isEmpty, validate, ValidationError } from "class-validator";
 import { Request, Response, Router } from "express";
 import { User } from "../entities/User";
+import cookie from "cookie";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 const mapError = (errors: Object[]) => {
   return errors.reduce((prev: any, err: any) => {
@@ -13,7 +16,7 @@ const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
 
   try {
-    let errors: any = {};
+    let errors: { email?: string; username?: string } | ValidationError[] = {};
 
     // 이메일과 유저이름이 이미 저장 사용되고 있는 것인지 확인.
     const emailUser = await User.findOneBy({ email });
@@ -37,6 +40,7 @@ const register = async (req: Request, res: Response) => {
     // 엔티티에 정해 놓은 조건으로 user 데이터의 유효성 검사를 해줌.
     errors = await validate(user);
     if (errors.length > 0) {
+      console.log("errors: ", errors);
       console.log("validate - ", mapError(errors));
       return res.status(400).json(mapError(errors));
     }
@@ -50,7 +54,56 @@ const register = async (req: Request, res: Response) => {
   }
 };
 
+const login = async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  try {
+    let errors: { username?: string; password?: string } = {};
+    // 비워져있다면 에러를 프론트엔드로 보내주기
+    if (isEmpty(username))
+      errors.username = "사용자 이름은 비워둘 수 없습니다.";
+    if (isEmpty(password)) errors.password = "비밀번호는 비워둘 수 없습니다.";
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json(errors);
+    }
+
+    // 디비에서 유저 찾기
+    const user = await User.findOneBy({ username });
+
+    if (!user)
+      return res
+        .status(404)
+        .json({ username: "사용자 이름이 등록되지 않았습니다." });
+
+    // 유저가 있다면 비밀번호 비교하기
+    const passwordMatches = await bcrypt.compare(password, user.password);
+
+    // 비밀번호가 다르다면 에러 보내기
+    if (!passwordMatches) {
+      return res.status(401).json({ password: "비밀번호가 잘못되었습니다." });
+    }
+
+    // 비밀번호가 맞다면 토큰 생성
+    const token = jwt.sign({ username }, process.env.JWT_SECRET!);
+
+    // 쿠키저장
+    res.set(
+      "Set-Cookie",
+      cookie.serialize("token", token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 7,
+        path: "/",
+      })
+    );
+
+    return res.json({ user, token });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
+  }
+};
+
 const router = Router();
 router.post("/register", register);
+router.post("/login", login);
 
 export default router;
