@@ -3,12 +3,18 @@ import InputGroup from "../components/InputGroup";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useAuthDispatch, useAuthState } from "@/context/auth";
 
 const Login = () => {
   let router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<any>({});
+
+  const { authenticated } = useAuthState();
+  const dispatch = useAuthDispatch();
+
+  if (authenticated) router.push("/");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -18,8 +24,8 @@ const Login = () => {
         { password, username },
         { withCredentials: true } // 도메인 주소가 다르면 쿠키가 전송이 되지 않음 추가해야함
       );
-
-      //   router.push("/");
+      dispatch("LOGIN", res.data?.user);
+      router.push("/");
     } catch (error: any) {
       console.log(error);
       setErrors(error.response?.data || {});
