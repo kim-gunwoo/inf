@@ -4,6 +4,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import { AppDataSource } from "./data-source";
 import authRoutes from "./routes/auth";
+import subRoutes from "./routes/subs";
 
 dotenv.config({ path: ".env.development" });
 
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 
 app.get("/", (_, res) => res.send("running"));
 app.use("/api/auth", authRoutes);
+app.use("/api/subs", subRoutes);
 
 app.listen(PORT, async () => {
   console.log(`Server running at ${process.env.APP_URL}`);
