@@ -90,4 +90,6 @@ expires/max-age - 쿠키의 만료 시간을 세팅. 이 옵션이 없으면 브
 ```sh
 $ npm install jsonwebtoken dotenv cookie --save
 $ npm i --save-dev @types/jsonwebtoken @types/cookie
+$ npm install cookie-parser --save
+$ npm i --save-dev @types/cookie-parser
 ```
