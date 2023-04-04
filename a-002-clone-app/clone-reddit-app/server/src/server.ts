@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { AppDataSource } from "./data-source";
 import authRoutes from "./routes/auth";
 import subRoutes from "./routes/subs";
+import cookieParser from "cookie-parser";
 
 dotenv.config({ path: ".env.development" });
 
@@ -16,6 +17,7 @@ app.use(cors({ origin, credentials: true }));
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 app.get("/", (_, res) => res.send("running"));
 app.use("/api/auth", authRoutes);
