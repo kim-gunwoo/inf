@@ -4,6 +4,8 @@ import { User } from "../entities/User";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import userMiddleware from "../middlewares/user";
+import authMiddleware from "../middlewares/auth";
 
 const mapError = (errors: Object[]) => {
   return errors.reduce((prev: any, err: any) => {
@@ -102,8 +104,13 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
+const me = async (_: Request, res: Response) => {
+  return res.json(res.locals.user);
+};
+
 const router = Router();
 router.post("/register", register);
 router.post("/login", login);
+router.get("/me", userMiddleware, authMiddleware, me);
 
 export default router;
