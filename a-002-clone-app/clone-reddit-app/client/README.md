@@ -24,3 +24,9 @@ $ touch postcss.config.js
 - POST CSS는 CSS에 문제가 없는지 미리 확인해서 에러 로그를 준다.
 - PostCSS 자체는 아무 일도 하지 않음. 다만 다양한 플러그인과, 플러그인을 추가할 수 있음
 ```
+
+## swr
+
+```
+$ yarn add swr
+```
