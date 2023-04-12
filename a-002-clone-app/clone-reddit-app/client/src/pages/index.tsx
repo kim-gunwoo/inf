@@ -1,7 +1,17 @@
+import { Sub } from "@/types";
+import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
+import useSWR from "swr";
 
 export default function Home() {
+  const fetcher = async (url: string) => {
+    return await axios.get(url).then((res) => res.data);
+  };
+  const address = `http://localhost:4000/api/subs/sub/topSubs`;
+  const { data: topSubs } = useSWR<Sub[]>(address, fetcher);
+  console.log(topSubs);
+
   return (
     <>
       <Head>
