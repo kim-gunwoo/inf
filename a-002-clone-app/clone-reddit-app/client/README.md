@@ -30,3 +30,9 @@ $ touch postcss.config.js
 ```
 $ yarn add swr
 ```
+
+## dayjs
+
+```
+$ yarn add dayjs
+```
