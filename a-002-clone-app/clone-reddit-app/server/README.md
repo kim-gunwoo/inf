@@ -93,3 +93,10 @@ $ npm i --save-dev @types/jsonwebtoken @types/cookie
 $ npm install cookie-parser --save
 $ npm i --save-dev @types/cookie-parser
 ```
+
+### multer
+
+```
+$ npm install multer --save
+$ npm i --save-dev @types/multer
+```
