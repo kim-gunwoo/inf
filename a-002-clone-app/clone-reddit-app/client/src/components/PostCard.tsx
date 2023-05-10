@@ -33,6 +33,7 @@ const PostCard = ({
   subMutate,
 }: PostCardProps) => {
   const router = useRouter();
+  const isInSubPage = router.pathname === "/r/[sub]";
 
   const { authenticated } = useAuthState();
 
@@ -81,6 +82,27 @@ const PostCard = ({
 
       {/* 포스트 데이터 부분 */}
       <div className="w-full p-2">
+        {!isInSubPage && (
+          <div className="flex items-center">
+            <Link href={`/r/${subName}`}>
+              <a>
+                <Image
+                  src={sub!.imageUrl}
+                  alt="sub"
+                  className="rounded-full cursor-pointer"
+                  width={12}
+                  height={12}
+                />
+              </a>
+            </Link>
+            <Link href={`/r/${subName}`}>
+              <a className="ml-2 text-xs font-bold cursor-pointer hover:underline">
+                /r/{subName}
+              </a>
+            </Link>
+            <span className="mx-1 text-xs text-gray-400">•</span>
+          </div>
+        )}
         <div className="flex items-center">
           <p className="text-xs text-gray-400">
             Posted by
