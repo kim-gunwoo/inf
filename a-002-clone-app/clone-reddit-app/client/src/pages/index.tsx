@@ -1,10 +1,13 @@
+import PostCard from "@/components/PostCard";
 import { useAuthState } from "@/context/auth";
-import { Sub } from "@/types";
+import { Post, Sub } from "@/types";
 import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 
 export default function Home() {
   const { authenticated } = useAuthState();
@@ -13,7 +16,30 @@ export default function Home() {
   };
   const address = `http://localhost:4000/api/subs/sub/topSubs`;
   const { data: topSubs } = useSWR<Sub[]>(address, fetcher);
-  console.log(topSubs);
+
+  const getKey = (pageIndex: number, previousPageData: Post[]) => {
+    // if (previousPageData && !previousPageData.length) return null;
+    return `/posts?page=${pageIndex}`;
+  };
+
+  const {
+    data,
+    error,
+    size: page,
+    setSize: setPage,
+    isValidating,
+    mutate,
+  } = useSWRInfinite<Post[]>(getKey);
+
+  const isInitialLoading = !data && !error;
+  // const posts: Post[] = data ? ([] as Post[]).concat(...data) : [];
+  const posts: Post[] | undefined = data?.reduce((acc, cur) => acc.concat(cur));
+
+  useEffect(() => {
+    if (page < 5) {
+      setPage(page + 1);
+    }
+  }, [page, setPage]);
 
   return (
     <>
@@ -25,7 +51,14 @@ export default function Home() {
       </Head>
       <div className="flex max-w-5xl px-4 pt-5 mx-auto">
         {/* 포스트 리스트 */}
-        <div className="w-full md:mr-3 md:w-8/12"></div>
+        <div className="w-full md:mr-3 md:w-8/12">
+          {isInitialLoading && (
+            <p className="text-lg text-center">로딩중입니다...</p>
+          )}
+          {posts?.map((post) => (
+            <PostCard key={post.identifier} post={post} mutate={mutate} />
+          ))}
+        </div>
 
         {/* 사이드바 */}
         <div className="hidden w-4/12 ml-3 md:block">
