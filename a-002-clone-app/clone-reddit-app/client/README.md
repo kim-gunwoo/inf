@@ -36,3 +36,17 @@ $ yarn add swr
 ```
 $ yarn add dayjs
 ```
+
+## env-cmd
+
+```
+$ yarn add env-cmd
+```
+
+## sharp
+
+이미지 최적화
+
+```
+$ yarn add sharp
+```
