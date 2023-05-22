@@ -100,3 +100,9 @@ $ npm i --save-dev @types/cookie-parser
 $ npm install multer --save
 $ npm i --save-dev @types/multer
 ```
+
+### transliteration
+
+```
+$ npm install transliteration --save
+```

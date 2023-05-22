@@ -14,7 +14,7 @@ export default function Home() {
   const fetcher = async (url: string) => {
     return await axios.get(url).then((res) => res.data);
   };
-  const address = `http://localhost:4000/api/subs/sub/topSubs`;
+  const address = `/api/subs/sub/topSubs`;
   const { data: topSubs } = useSWR<Sub[]>(address, fetcher);
 
   const getKey = (pageIndex: number, previousPageData: Post[]) => {
