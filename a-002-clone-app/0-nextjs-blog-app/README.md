@@ -4,3 +4,5 @@ https://nextjs.org/learn/foundations/about-nextjs?utm_source=next-site&utm_mediu
 
 - Markdown
   https://nextjs.org/learn/basics/data-fetching/blog-data
+
+npm install remark remark-html
