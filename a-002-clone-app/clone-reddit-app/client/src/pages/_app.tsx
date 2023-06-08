@@ -1,4 +1,4 @@
-import NavBar from "@/components/Navbar";
+import NavBar from "@/components/NavBar";
 import { AuthProvider } from "@/context/auth";
 import "@/styles/globals.css";
 import axios, { AxiosError } from "axios";
