@@ -9,4 +9,11 @@ test("renders learn react link", () => {
 
   expect(linkElement).toBeInTheDocument();
   expect(linkElement2).toBeInTheDocument();
+
+  // Linkt 적용 테스트
+  // const lintTest = screen.getByRole("button", {
+  //   name: "lintTest",
+  // });
+
+  // expect(lintTest.textContent).toBe("lintTest");
 });
