@@ -51,3 +51,9 @@ const lintTest = screen.getByRole("button", {
 
 expect(lintTest.textContent).toBe("lintTest");
 ```
+
+```
+추천하는 쿼리 사용 우선순위가 있음 (참고: https://testing-library.com/docs/queries/about/)
+getByRole <-  좋은 방법
+userEvent > fireEvent <-  userEvnet 가 더 좋은 방법
+```
