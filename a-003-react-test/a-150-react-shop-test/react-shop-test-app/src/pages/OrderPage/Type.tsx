@@ -1,8 +1,42 @@
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import Products from "./Products";
+
 interface IProps {
-  orderType: string;
+  orderType: "products" | "options";
+}
+
+interface IItem {
+  name: string;
+  imagePath: string;
 }
 
 function Type({ orderType }: IProps) {
-  return <div></div>;
+  const [items, setItems] = useState<IItem[]>([]);
+
+  const loadItems = useCallback(async (orderType: "products" | "options") => {
+    try {
+      let response = await axios.get<IItem[]>(
+        `http://localhost:5000/${orderType}`
+      );
+      setItems(response.data);
+    } catch (error) {}
+  }, []);
+
+  useEffect(() => {
+    loadItems(orderType);
+  }, [loadItems, orderType]);
+
+  const ItemComponents = Products;
+
+  const optionItems = items.map((item) => (
+    <ItemComponents
+      key={item.name}
+      name={item.name}
+      imagePath={item.imagePath}
+    />
+  ));
+
+  return <div>{optionItems}</div>;
 }
 export default Type;
