@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Products from "./Products";
+import ErrorBanner from "../../components/ErrorBanner";
 
 interface IProps {
   orderType: "products" | "options";
@@ -13,6 +14,7 @@ interface IItem {
 
 function Type({ orderType }: IProps) {
   const [items, setItems] = useState<IItem[]>([]);
+  const [error, setError] = useState(false);
 
   const loadItems = useCallback(async (orderType: "products" | "options") => {
     try {
@@ -20,7 +22,9 @@ function Type({ orderType }: IProps) {
         `http://localhost:5000/${orderType}`
       );
       setItems(response.data);
-    } catch (error) {}
+    } catch (error) {
+      setError(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -36,6 +40,10 @@ function Type({ orderType }: IProps) {
       imagePath={item.imagePath}
     />
   ));
+
+  if (error) {
+    return <ErrorBanner message="에러가 발생했습니다." />;
+  }
 
   return <div>{optionItems}</div>;
 }
