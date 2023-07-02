@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Products from "./Products";
 import ErrorBanner from "../../components/ErrorBanner";
+import Options from "./Options";
 
 interface IProps {
   orderType: "products" | "options";
@@ -31,13 +32,16 @@ function Type({ orderType }: IProps) {
     loadItems(orderType);
   }, [loadItems, orderType]);
 
-  const ItemComponents = Products;
+  const ItemComponents = orderType === "products" ? Products : Options;
 
   const optionItems = items.map((item) => (
     <ItemComponents
       key={item.name}
       name={item.name}
       imagePath={item.imagePath}
+      updateItemCount={(itemName, newItemCount) => {
+        //
+      }}
     />
   ));
 
