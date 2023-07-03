@@ -20,7 +20,7 @@ function Type({ orderType }: IProps) {
   const loadItems = useCallback(async (orderType: "products" | "options") => {
     try {
       let response = await axios.get<IItem[]>(
-        `http://localhost:5000/${orderType}`
+        `http://localhost:5001/${orderType}`
       );
       setItems(response.data);
     } catch (error) {
@@ -49,6 +49,20 @@ function Type({ orderType }: IProps) {
     return <ErrorBanner message="에러가 발생했습니다." />;
   }
 
-  return <div>{optionItems}</div>;
+  return (
+    <>
+      <h2>주문 종류</h2>
+      <p>하나의 가격</p>
+      <p></p>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: orderType === "options" ? "column" : "row",
+        }}
+      >
+        {optionItems}
+      </div>
+    </>
+  );
 }
 export default Type;
