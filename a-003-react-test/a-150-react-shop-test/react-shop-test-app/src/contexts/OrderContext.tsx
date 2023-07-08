@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useMemo, useState } from "react";
 
 type IState = readonly [
   {
@@ -23,4 +23,24 @@ interface IOrderCounts {
   options: Map<string, number>;
 }
 
-export const OrderContext = createContext<IState | null>(null);
+// export const OrderContext = createContext<IState | null>(null);
+export const OrderContext = createContext<readonly [IOrderCounts] | null>(null);
+
+interface IProps {
+  children: React.ReactNode;
+}
+
+export function OrderContextProvider({ children }: IProps) {
+  const [orderCounts, setOrderCounts] = useState({
+    products: new Map(),
+    options: new Map(),
+  });
+
+  const value = useMemo(() => {
+    return [{ ...orderCounts }] as const;
+  }, [orderCounts]);
+
+  return (
+    <OrderContext.Provider value={value}>{children}</OrderContext.Provider>
+  );
+}
