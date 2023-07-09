@@ -12,7 +12,7 @@ type IState = readonly [
   },
   (
     itemName: string,
-    newItemCount: string,
+    newItemCount: number,
     orderType: "products" | "options"
   ) => void,
   () => void
@@ -24,7 +24,17 @@ interface IOrderCounts {
 }
 
 // export const OrderContext = createContext<IState | null>(null);
-export const OrderContext = createContext<readonly [IOrderCounts] | null>(null);
+export const OrderContext = createContext<
+  | readonly [
+      IOrderCounts,
+      (
+        itemName: string,
+        newItemCount: number,
+        orderType: "products" | "options"
+      ) => void
+    ]
+  | null
+>(null);
 
 interface IProps {
   children: React.ReactNode;
@@ -37,7 +47,21 @@ export function OrderContextProvider({ children }: IProps) {
   });
 
   const value = useMemo(() => {
-    return [{ ...orderCounts }] as const;
+    function updateItemCount(
+      itemName: string,
+      newItemCount: number,
+      orderType: "products" | "options"
+    ) {
+      const newOrderCounts = { ...orderCounts };
+
+      const orderCountsMap = orderCounts[orderType];
+      // orderCountsMap.set(itemName, parseInt(newItemCount));
+      orderCountsMap.set(itemName, Number(newItemCount));
+
+      setOrderCounts(newOrderCounts);
+    }
+
+    return [{ ...orderCounts }, updateItemCount] as const;
   }, [orderCounts]);
 
   return (
