@@ -1,4 +1,4 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type IState = readonly [
   {
@@ -23,18 +23,21 @@ interface IOrderCounts {
   options: Map<string, number>;
 }
 
+interface IOrderTotals extends IOrderCounts {
+  totals: { products: number; options: number; total: number };
+}
+
 // export const OrderContext = createContext<IState | null>(null);
-export const OrderContext = createContext<
-  | readonly [
-      IOrderCounts,
-      (
-        itemName: string,
-        newItemCount: number,
-        orderType: "products" | "options"
-      ) => void
-    ]
-  | null
->(null);
+export type TState = readonly [
+  IOrderTotals,
+  (
+    itemName: string,
+    newItemCount: number,
+    orderType: "products" | "options"
+  ) => void
+];
+
+export const OrderContext = createContext<TState | null>(null);
 
 interface IProps {
   children: React.ReactNode;
@@ -98,6 +101,17 @@ export function OrderContextProvider({ children }: IProps) {
   }, [orderCounts, totals]);
 
   return (
-    <OrderContext.Provider value={value}>{children}</OrderContext.Provider>
+    <OrderContext.Provider value={value!}>{children}</OrderContext.Provider>
   );
 }
+
+export const useOrderContext = () => {
+  const orderContext = useContext(OrderContext);
+
+  if (!orderContext) {
+    throw new Error(
+      "orderContext has to be used within <OrderContext.Provider>"
+    );
+  }
+  return orderContext;
+};
