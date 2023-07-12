@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import Type from "../Type";
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { OrderContextProvider } from "../../../contexts/OrderContext";
 
 test.only("update product's total when products change", async () => {
