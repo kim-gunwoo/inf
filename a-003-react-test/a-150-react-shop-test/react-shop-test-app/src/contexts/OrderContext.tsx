@@ -101,7 +101,7 @@ export function OrderContextProvider({ children }: IProps) {
   }, [orderCounts, totals]);
 
   return (
-    <OrderContext.Provider value={value!}>{children}</OrderContext.Provider>
+    <OrderContext.Provider value={value}>{children}</OrderContext.Provider>
   );
 }
 
