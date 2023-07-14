@@ -3,12 +3,16 @@ import React, { useCallback } from "react";
 interface IProps {
   name: string;
   imagePath: string;
+  updateItemCount: (itemName: string, newItemCount: number) => void;
 }
 
-function Products({ name, imagePath }: IProps) {
+function Products({ name, imagePath, updateItemCount }: IProps) {
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {},
-    []
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const currentValue = event.target.value;
+      updateItemCount(name, Number(currentValue));
+    },
+    [name, updateItemCount]
   );
 
   return (
