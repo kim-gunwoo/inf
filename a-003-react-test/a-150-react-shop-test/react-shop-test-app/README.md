@@ -25,6 +25,8 @@ npm install msw
         "/node_modules/(?!(axios)/)"
         ]
     },
+    or
+    "jest": { "moduleNameMapper": { "axios": "axios/dist/node/axios.cjs" } },
     ...
 }
 // 또는 아래와 같이 스크립트를 수정해준다.
