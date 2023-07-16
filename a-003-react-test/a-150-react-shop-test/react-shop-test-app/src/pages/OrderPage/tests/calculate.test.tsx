@@ -3,7 +3,8 @@ import Type from "../Type";
 import { act, render, screen } from "@testing-library/react";
 import { OrderContextProvider } from "../../../contexts/OrderContext";
 
-test.only("update product's total when products change", async () => {
+// test.only("update product's total when products change", async () => {
+test("update product's total when products change", async () => {
   // render(<Type orderType="products" />);
   render(<Type orderType="products" />, { wrapper: OrderContextProvider });
 
@@ -23,4 +24,35 @@ test.only("update product's total when products change", async () => {
   });
 
   expect(productsTotal).toHaveTextContent("1000");
+});
+
+test("update option's total when options change", async () => {
+  render(<Type orderType="options" />, { wrapper: OrderContextProvider });
+
+  const optionsTotal = screen.getByText("옵션 총 가격:", { exact: false });
+  expect(optionsTotal).toHaveTextContent("0");
+
+  const insuranceCheckbox = await screen.findByRole("checkbox", {
+    name: "Insurance",
+  });
+  // eslint-disable-next-line testing-library/no-unnecessary-act
+  act(() => {
+    userEvent.click(insuranceCheckbox);
+  });
+  expect(optionsTotal).toHaveTextContent("500");
+
+  const dinnerCheckbox = await screen.findByRole("checkbox", {
+    name: "Dinner",
+  });
+  // eslint-disable-next-line testing-library/no-unnecessary-act
+  act(() => {
+    userEvent.click(dinnerCheckbox);
+  });
+  expect(optionsTotal).toHaveTextContent("1000");
+
+  // eslint-disable-next-line testing-library/no-unnecessary-act
+  act(() => {
+    userEvent.click(dinnerCheckbox);
+  });
+  expect(optionsTotal).toHaveTextContent("500");
 });
