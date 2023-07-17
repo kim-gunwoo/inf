@@ -1,6 +1,9 @@
+import { useOrderContext } from "../../contexts/OrderContext";
 import Type from "./Type";
 
 export default function OrderPage() {
+  const [orderDatas] = useOrderContext();
+
   return (
     <div>
       <h1>Travel Products</h1>
@@ -12,7 +15,7 @@ export default function OrderPage() {
           <Type orderType="options" />
         </div>
         <div>
-          <h2>Total Price:</h2>
+          <h2>Total Price: {orderDatas.totals.total}</h2>
           <br />
           <button>주문하기</button>
         </div>
