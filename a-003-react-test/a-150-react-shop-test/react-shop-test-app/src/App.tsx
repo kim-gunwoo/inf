@@ -1,11 +1,16 @@
+import { useState } from "react";
 import { OrderContextProvider } from "./contexts/OrderContext";
 import OrderPage from "./pages/OrderPage/OrderPage";
+import SummaryPage from "./pages/SummaryPage/SummaryPage";
 
 function App() {
+  const [step, setStep] = useState(0);
+
   return (
     <div style={{ padding: "4rem" }}>
       <OrderContextProvider>
-        <OrderPage />
+        {step === 0 && <OrderPage setStep={setStep} />}
+        {step === 1 && <SummaryPage setStep={setStep} />}
       </OrderContextProvider>
     </div>
   );

@@ -1,7 +1,16 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
-const SummaryPage = () => {
+interface IProps {
+  setStep: React.Dispatch<SetStateAction<number>>;
+}
+
+const SummaryPage = ({ setStep }: IProps) => {
   const [checked, setChecked] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setStep(2);
+  };
 
   return (
     <div>
@@ -9,7 +18,7 @@ const SummaryPage = () => {
       <h2>여행 상품: </h2>
       <ul></ul>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="checkbox"
           id="confirm-checkbox"

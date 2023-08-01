@@ -1,7 +1,12 @@
+import { SetStateAction } from "react";
 import { useOrderContext } from "../../contexts/OrderContext";
 import Type from "./Type";
 
-export default function OrderPage() {
+interface IProps {
+  setStep: React.Dispatch<SetStateAction<number>>;
+}
+
+export default function OrderPage({ setStep }: IProps) {
   const [orderDatas] = useOrderContext();
 
   return (
@@ -17,7 +22,7 @@ export default function OrderPage() {
         <div>
           <h2>Total Price: {orderDatas.totals.total}</h2>
           <br />
-          <button>주문하기</button>
+          <button onClick={() => setStep(1)}>주문하기</button>
         </div>
       </div>
     </div>
