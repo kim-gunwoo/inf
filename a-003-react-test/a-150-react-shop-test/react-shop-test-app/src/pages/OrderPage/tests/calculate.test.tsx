@@ -61,7 +61,8 @@ test("update option's total when options change", async () => {
 
 describe("total price of goods and options", () => {
   test("total price starts with 0 and Updating total price when adding one product", async () => {
-    render(<OrderPage />, { wrapper: OrderContextProvider });
+    const setState = jest.fn();
+    render(<OrderPage setStep={setState} />, { wrapper: OrderContextProvider });
 
     const total = screen.getByText("Total Price:", { exact: false });
     expect(total).toHaveTextContent("0");
@@ -80,7 +81,8 @@ describe("total price of goods and options", () => {
   });
 
   test("Updating total price when adding one option", async () => {
-    render(<OrderPage />, { wrapper: OrderContextProvider });
+    const setState = jest.fn();
+    render(<OrderPage setStep={setState} />, { wrapper: OrderContextProvider });
     const total = screen.getByText("Total Price:", { exact: false });
 
     const insuranceCheckbox = await screen.findByRole("checkbox", {
@@ -92,7 +94,8 @@ describe("total price of goods and options", () => {
   });
 
   test("Updating total price when removing option and product", async () => {
-    render(<OrderPage />, { wrapper: OrderContextProvider });
+    const setState = jest.fn();
+    render(<OrderPage setStep={setState} />, { wrapper: OrderContextProvider });
     const total = screen.getByText("Total Price:", { exact: false });
 
     const insuranceCheckbox = await screen.findByRole("checkbox", {
