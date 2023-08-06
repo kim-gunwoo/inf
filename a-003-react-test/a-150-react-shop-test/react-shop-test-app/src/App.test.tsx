@@ -1,6 +1,6 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
 
@@ -71,6 +71,35 @@ test("From order to order completion", async () => {
   });
   act(() => {
     userEvent.click(confirmOrderButton);
+  });
+
+  ////////////////////   주문 완료 페이지   //////////////////
+  const loading = screen.getByText(/loading/i);
+  expect(loading).toBeInTheDocument();
+
+  const completeHeader = await screen.findByRole("heading", {
+    name: "주문이 성공했습니다.",
+  });
+  expect(completeHeader).toBeInTheDocument();
+
+  const loadingDisappeared = screen.queryByText("loading");
+  expect(loadingDisappeared).not.toBeInTheDocument();
+
+  const firstPageButton = screen.getByRole("button", {
+    name: "첫페이지로",
+  });
+  act(() => {
+    userEvent.click(firstPageButton);
+  });
+
+  const productsTotal = screen.getByText("상품 총 가격: 0");
+  expect(productsTotal).toBeInTheDocument();
+
+  const optionsTotal = screen.getByText("옵션 총 가격: 0");
+  expect(optionsTotal).toBeInTheDocument();
+
+  await waitFor(() => {
+    screen.getByRole("spinbutton", { name: "America" });
   });
 });
 
