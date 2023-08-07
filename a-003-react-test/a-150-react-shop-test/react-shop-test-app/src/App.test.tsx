@@ -1,6 +1,12 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import React from "react";
-import { act, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
 
@@ -77,6 +83,8 @@ test("From order to order completion", async () => {
   const loading = screen.getByText(/loading/i);
   expect(loading).toBeInTheDocument();
 
+  await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
+
   const completeHeader = await screen.findByRole("heading", {
     name: "주문이 성공했습니다.",
   });
@@ -101,6 +109,8 @@ test("From order to order completion", async () => {
   await waitFor(() => {
     screen.getByRole("spinbutton", { name: "America" });
   });
+
+  await screen.findByRole("spinbutton", { name: "America" });
 });
 
 // test("renders learn react link", () => {
