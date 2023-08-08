@@ -1,15 +1,16 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-type IState = readonly [
-  {
-    totals: {
-      products: number;
-      options: number;
-      total: number;
-    };
-    products: Map<string, number>;
-    options: Map<string, number>;
-  },
+interface IOrderCounts {
+  products: Map<string, number>;
+  options: Map<string, number>;
+}
+
+export interface IOrderTotals extends IOrderCounts {
+  totals: { products: number; options: number; total: number };
+}
+
+export type IState = readonly [
+  IOrderTotals,
   (
     itemName: string,
     newItemCount: number,
@@ -18,26 +19,7 @@ type IState = readonly [
   () => void
 ];
 
-interface IOrderCounts {
-  products: Map<string, number>;
-  options: Map<string, number>;
-}
-
-interface IOrderTotals extends IOrderCounts {
-  totals: { products: number; options: number; total: number };
-}
-
-// export const OrderContext = createContext<IState | null>(null);
-export type TState = readonly [
-  IOrderTotals,
-  (
-    itemName: string,
-    newItemCount: number,
-    orderType: "products" | "options"
-  ) => void
-];
-
-export const OrderContext = createContext<TState | null>(null);
+export const OrderContext = createContext<IState | null>(null);
 
 interface IProps {
   children: React.ReactNode;
@@ -97,7 +79,18 @@ export function OrderContextProvider({ children }: IProps) {
       setOrderCounts(newOrderCounts);
     }
 
-    return [{ ...orderCounts, totals }, updateItemCount] as const;
+    const resetOrderDatas = () => {
+      setOrderCounts({
+        products: new Map(),
+        options: new Map(),
+      });
+    };
+
+    return [
+      { ...orderCounts, totals },
+      updateItemCount,
+      resetOrderDatas,
+    ] as const;
   }, [orderCounts, totals]);
 
   return (
