@@ -3,7 +3,8 @@ import SummaryPage from "../SummaryPage";
 // import { render, screen } from "@testing-library/react";
 
 test("checkbox and button", () => {
-  render(<SummaryPage />);
+  const setState = jest.fn();
+  render(<SummaryPage setStep={setState} />);
 
   const checkbox = screen.getByRole("checkbox", {
     name: "주문하려는 것을 확인하셨나요?",

@@ -1,15 +1,48 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import { useOrderContext } from "../../contexts/OrderContext";
 
-const SummaryPage = () => {
+interface IProps {
+  setStep: React.Dispatch<SetStateAction<number>>;
+}
+
+const SummaryPage = ({ setStep }: IProps) => {
+  const [orderDatas] = useOrderContext();
   const [checked, setChecked] = useState(false);
+
+  const productArray = Array.from(orderDatas.products);
+  const productList = productArray.map(
+    ([key, value]: [key: string, value: number]) => (
+      <li key={key}>
+        {value} {key}
+      </li>
+    )
+  );
+
+  const hasOptions = orderDatas.options.size > 0;
+  let optionsRender = null;
+  if (hasOptions) {
+    const optionsArray = Array.from(orderDatas.options.keys());
+    const optionList = optionsArray.map((key) => <li key={key}>{key}</li>);
+    optionsRender = (
+      <>
+        <h2>옵션: {orderDatas.totals.options}</h2>
+        <ul>{optionList}</ul>
+      </>
+    );
+  }
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setStep(2);
+  };
 
   return (
     <div>
       <h1>주문 확인</h1>
-      <h2>여행 상품: </h2>
-      <ul></ul>
-
-      <form>
+      <h2>여행 상품: {orderDatas.totals.products}</h2>
+      <ul>{productList}</ul>
+      {optionsRender}
+      <form onSubmit={handleSubmit}>
         <input
           type="checkbox"
           id="confirm-checkbox"
