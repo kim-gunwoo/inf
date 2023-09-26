@@ -46,3 +46,16 @@ const App = () => (
   </Router>
 );
 ```
+##### text compression
+
+```sh
+$ node ./node_modules/serve/bin/serve.js --help
+```
+
+```json 
+# package.json
+...
+  "serve": "npm run build && node ./node_modules/serve/bin/serve.js -u -s build",
+  "serve": "npm run build && node ./node_modules/serve/bin/serve.js -s build",
+...
+```
