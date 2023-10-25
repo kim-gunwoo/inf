@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
  * Reference
  * https://nextjs.org/docs/advanced-features/dynamic-import#with-no-ssr
  * */
-const NoSSR = dynamic(() => import('../../../components/section1/NoSSR'), {
+const NoSSR = dynamic(() => import('../../components/section1/NoSSR'), {
   ssr: false,
 });
 
