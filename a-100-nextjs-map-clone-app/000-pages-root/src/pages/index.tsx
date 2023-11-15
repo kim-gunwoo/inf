@@ -1,4 +1,3 @@
-import HeaderComponent from '@/components/common/Header';
 import styles from '../styles/header.module.scss';
 import Link from 'next/link';
 import { AiOutlineShareAlt } from 'react-icons/ai';
@@ -8,6 +7,7 @@ import { Store } from '@/types/store';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
 import useStores from '@/hooks/useStores';
+import Header from '@/components/home/Header';
 
 interface Props {
   stores: Store[];
@@ -22,28 +22,7 @@ const Home: NextPage<Props> = ({ stores }) => {
 
   return (
     <>
-      <HeaderComponent
-        rightElements={[
-          <button
-            key={'copy'}
-            className={styles.box}
-            style={{ marginRight: 8 }}
-            onClick={() => {
-              alert('copy');
-            }}
-          >
-            <AiOutlineShareAlt size={20} color="#444444" />
-          </button>,
-          <Link
-            key="link"
-            className={styles.box}
-            href="/feedback"
-            aria-label="피드백 페이지로 이동"
-          >
-            <VscFeedback size={20} color="#444444" />
-          </Link>,
-        ]}
-      />
+      <Header />
       <main style={{ width: '100%', height: '100%' }}>
         <MapSection />
       </main>

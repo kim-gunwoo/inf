@@ -1,9 +1,9 @@
-import HeaderComponent from '@/components/common/Header';
+import HomeHeader from '@/components/home/Header';
 
 export default function Feedback() {
   return (
     <div>
-      <HeaderComponent />
+      <HomeHeader />
     </div>
   );
 }
