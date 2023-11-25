@@ -4,6 +4,7 @@ import { CURRENT_STORE_KEY } from '@/hooks/useCurrentStore';
 import useSWR from 'swr';
 import { Store } from '@/types/store';
 import { useState } from 'react';
+import DetailContent from './DetailContent';
 
 const DetailSection = () => {
   const { data: currentStore } = useSWR<Store>(CURRENT_STORE_KEY);
@@ -33,6 +34,7 @@ const DetailSection = () => {
           </div>
         )}
       </div>
+      <DetailContent currentStore={currentStore} expanded={expanded} />
     </div>
   );
 };
