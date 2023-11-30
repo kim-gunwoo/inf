@@ -1,12 +1,16 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import type { Store } from '../types/store';
 import { useRouter } from 'next/router';
+import DetailHeader from '@/components/home/DetailHeader';
+import DetailContent from '@/components/home/DetailContent';
+import styles from '../styles/detail.module.scss';
 
 interface Props {
   store: Store;
 }
 
 const StoreDetail: NextPage<Props> = ({ store }) => {
+  const expanded = true;
   const router = useRouter();
 
   // fallback : true 일 경우
@@ -14,7 +18,16 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
   //   return <div>loading...</div>;
   // }
 
-  return <div>{store.name}</div>;
+  return (
+    <div className={`${styles.detailSection} ${styles.expanded}`}>
+      <DetailHeader
+        currentStore={store}
+        expanded={expanded}
+        onClickArrow={() => null}
+      />
+      <DetailContent currentStore={store} expanded={expanded} />
+    </div>
+  );
 };
 export default StoreDetail;
 
