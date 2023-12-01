@@ -6,10 +6,12 @@ import { Store } from '@/types/store';
 import { useState } from 'react';
 import DetailContent from './DetailContent';
 import DetailHeader from './DetailHeader';
+import { useRouter } from 'next/router';
 
 const DetailSection = () => {
   const { data: currentStore } = useSWR<Store>(CURRENT_STORE_KEY);
   const [expanded, setExpanded] = useState(false);
+  const router = useRouter();
 
   return (
     <div
@@ -20,7 +22,12 @@ const DetailSection = () => {
       <DetailHeader
         currentStore={currentStore}
         expanded={expanded}
-        onClickArrow={() => setExpanded(!expanded)}
+        onClickArrow={() => {
+          setExpanded(!expanded);
+          if (currentStore && !expanded) {
+            router.push(`/${currentStore.name}`);
+          }
+        }}
       />
       <DetailContent currentStore={currentStore} expanded={expanded} />
     </div>

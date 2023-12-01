@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import DetailHeader from '@/components/home/DetailHeader';
 import DetailContent from '@/components/home/DetailContent';
 import styles from '../styles/detail.module.scss';
+import useCurrentStore from '@/hooks/useCurrentStore';
 
 interface Props {
   store: Store;
@@ -12,6 +13,14 @@ interface Props {
 const StoreDetail: NextPage<Props> = ({ store }) => {
   const expanded = true;
   const router = useRouter();
+  const { setCurrentStore } = useCurrentStore();
+
+  const goToMap = () => {
+    setCurrentStore(store);
+    router.push(`
+      /?zoom=15&lat=${store.coordinates[0]}&lng=${store.coordinates[1]}
+    `);
+  };
 
   // fallback : true 일 경우
   // if (router.isFallback) {
@@ -23,7 +32,7 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
       <DetailHeader
         currentStore={store}
         expanded={expanded}
-        onClickArrow={() => null}
+        onClickArrow={goToMap}
       />
       <DetailContent currentStore={store} expanded={expanded} />
     </div>
