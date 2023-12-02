@@ -31,6 +31,7 @@ const HomeHeader = () => {
           key={'copy'}
           className={styles.box}
           style={{ marginRight: 8 }}
+          aria-label="현재 위치 클립보드 복사"
           onClick={replaceAndCopyUrl}
         >
           <AiOutlineShareAlt size={20} color="#444444" />
