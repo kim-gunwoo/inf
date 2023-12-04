@@ -5,6 +5,7 @@ import DetailHeader from '@/components/home/DetailHeader';
 import DetailContent from '@/components/home/DetailContent';
 import styles from '../styles/detail.module.scss';
 import useCurrentStore from '@/hooks/useCurrentStore';
+import { NextSeo } from 'next-seo';
 
 interface Props {
   store: Store;
@@ -28,14 +29,17 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
   // }
 
   return (
-    <div className={`${styles.detailSection} ${styles.expanded}`}>
-      <DetailHeader
-        currentStore={store}
-        expanded={expanded}
-        onClickArrow={goToMap}
-      />
-      <DetailContent currentStore={store} expanded={expanded} />
-    </div>
+    <>
+      <NextSeo title={store.name} description="매장 상세 페이지입니다." />
+      <div className={`${styles.detailSection} ${styles.expanded}`}>
+        <DetailHeader
+          currentStore={store}
+          expanded={expanded}
+          onClickArrow={goToMap}
+        />
+        <DetailContent currentStore={store} expanded={expanded} />
+      </div>
+    </>
   );
 };
 export default StoreDetail;
