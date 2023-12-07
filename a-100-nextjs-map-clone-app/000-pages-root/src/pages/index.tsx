@@ -20,7 +20,11 @@ const Home: NextPage<Props> = ({ stores }) => {
 
   return (
     <>
-      <NextSeo title="매장 지도" description="매장 지도 페이지입니다." />
+      <NextSeo
+        title="매장 지도"
+        description="매장 지도 페이지입니다."
+        canonical="my domain address "
+      />
       <Header />
       <main
         style={{

@@ -30,7 +30,11 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
 
   return (
     <>
-      <NextSeo title={store.name} description="매장 상세 페이지입니다." />
+      <NextSeo
+        title={store.name}
+        description="매장 상세 페이지입니다."
+        canonical={`my domain address /${store.name}`}
+      />
       <div className={`${styles.detailSection} ${styles.expanded}`}>
         <DetailHeader
           currentStore={store}
