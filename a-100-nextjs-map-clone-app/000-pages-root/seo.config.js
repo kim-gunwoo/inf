@@ -14,4 +14,11 @@ export default {
       href: '/favicon.ico',
     },
   ],
+  additionalMetaTags: [
+    // 네이버 서치어드바이저
+    {
+      name: 'naver-site-verification',
+      content: '',
+    },
+  ],
 };
