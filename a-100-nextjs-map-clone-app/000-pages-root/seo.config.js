@@ -20,5 +20,10 @@ export default {
       name: 'naver-site-verification',
       content: '',
     },
+    // 구글 서치 콘솔
+    {
+      name: 'google-site-verification',
+      content: '',
+    },
   ],
 };
