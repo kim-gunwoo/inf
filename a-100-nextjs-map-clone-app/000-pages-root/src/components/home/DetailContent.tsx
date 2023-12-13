@@ -52,7 +52,7 @@ const DetailContent = ({ currentStore, expanded }: Props) => {
               <span>{currentStore.phone || '정보가 없습니다.'}</span>
             </div>
             <div className="naverUrl">
-              <Image src={Naver} width={20} height={20} alt="" />
+              <Image src={Naver} width={20} height={20} alt="" priority />
               <a
                 href={`https://pcmap.place.naver.com/restaurant/${currentStore.nid}/home`}
                 target="_blank"

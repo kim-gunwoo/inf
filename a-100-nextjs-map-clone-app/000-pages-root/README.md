@@ -10,3 +10,28 @@ stylelint stylelint-config-standard stylelint-config-standard-scss stylelint-con
 .stylelintrc 추가
 ```
 
+## nextjs Image
+
+https://nextjs.org/docs/api-reference/next/image#known-browser-bugs
+
+https://nextjs.org/docs/api-reference/next/image#priority
+
+
+## nextjs
+
+https://github.com/vercel/next.js
+
+https://github.com/vercel/next.js/blob/canary/packages/next/src/client/script.tsx
+
+https://nextjs.org/docs/basic-features/script#executing-additional-code
+
+
+## next app directory
+
+https://nextjs.org/blog
+
+https://create.t3.gg/en/faq#why-are-we-using-pages-and-not-app-from-nextjs-13
+
+https://beta.nextjs.org/docs/styling/css-in-js
+
+https://nextui.org/docs/guide/nextui-plus-nextjs#next.js-13

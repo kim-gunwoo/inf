@@ -28,6 +28,7 @@ const HeaderComponent = ({ onClickLogo, rightElements }: Props) => {
             height={20}
             alt="로고"
             style={{ objectFit: 'contain' }}
+            priority
           /> */}
           <CustomAnchor
             // v 12
@@ -62,6 +63,7 @@ const CustomAnchor = React.forwardRef(function CustomAnchor(
         height={20}
         alt="로고"
         style={{ objectFit: 'contain' }}
+        priority
       />
     </a>
   );
