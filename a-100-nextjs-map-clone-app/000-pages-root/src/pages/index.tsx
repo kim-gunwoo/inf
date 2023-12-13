@@ -24,6 +24,7 @@ const Home: NextPage<Props> = ({ stores }) => {
         title="매장 지도"
         description="매장 지도 페이지입니다."
         canonical="my domain address "
+        openGraph={{ url: 'my domain address ' }}
       />
       <Header />
       <main
