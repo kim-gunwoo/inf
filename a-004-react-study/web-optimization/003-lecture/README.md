@@ -42,3 +42,8 @@ $ yarn server
 ```js
 Array.prototype.map.call('ABCDEGIKLMNOPR', c => 'u+' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4)).join(', ')
 ```
+
+create-react-app 환경에서 웹팩 설정 수정
+npm i react-app-rewired
+
+preload-webpack-plugin -> devDependencies 추가가 되지 않음
