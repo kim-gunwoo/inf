@@ -47,3 +47,6 @@ create-react-app 환경에서 웹팩 설정 수정
 npm i react-app-rewired
 
 preload-webpack-plugin -> devDependencies 추가가 되지 않음
+
+
+npm run build -> npm run purge
