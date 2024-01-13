@@ -1,33 +1,52 @@
 import HomeButton from '@/components/HomeButton';
+import RevalidateButton from '@/components/RevalidateButton';
+import { getForecast } from '@/utils/getForecast';
+import style from './style.module.css';
+import CurrentWeatherCondition from '@/components/CurrentWeatherCondition';
+import ForecastItem from '@/components/ForecastItem';
 
 type Props = {
   params: {
     location: string;
   };
+  searchParams: {
+    name: string;
+  };
 };
 
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-
-const getCurrentWeather = async (location: string): Promise<Response> => {
-  const res = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${location}&aqi=no&lang=ko`);
-  console.log(res);
-
-  if (!res.ok) {
-    throw new Error('날씨 정보를 가져올 수 없습니다.');
-  }
-
-  return res.json();
-};
+export function generateMetadata({ searchParams }: Props) {
+  return {
+    title: `날씨 앱 - ${searchParams.name}`,
+    description: `${searchParams.name} 날씨를 알려드립니다`,
+  };
+}
 
 export default async function Detail({ params }: Props) {
   const name = params.location;
-  const res = await getCurrentWeather(name);
-  console.log(res);
+  const { location, current, forecast } = await getForecast(params.location);
 
   return (
     <>
-      <h1>{name} 3일 예보</h1>
-      <HomeButton />
+      <h1>{name}의 3일 예보</h1>
+      <div className={style.buttonGroup}>
+        <HomeButton />
+        <RevalidateButton tag="time" />
+      </div>
+      <div className={style.header}>
+        <span>현재 날씨 -</span>{' '}
+        <CurrentWeatherCondition timeZone={location.tz_id} conditionText={current.condition.text} conditionIcon={current.condition.icon} />
+      </div>
+      <ul>
+        {forecast.forecastday.map((day) => (
+          <ForecastItem
+            key={day.date}
+            date={day.date}
+            temperature={day.day.avgtemp_c}
+            conditionText={day.day.condition.text}
+            conditionIcon={day.day.condition.icon}
+          />
+        ))}
+      </ul>
     </>
   );
 }
