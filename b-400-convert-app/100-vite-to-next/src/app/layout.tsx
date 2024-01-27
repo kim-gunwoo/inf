@@ -1,3 +1,10 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Vite App',
+    description: 'Vite App is a...',
+}
+  
 export default function RootLayout({
     children,
 }: {
@@ -5,18 +12,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-        <head>
-            <meta charset="UTF-8" />
-            <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Vite App</title>
-            <meta name="description" content="Vite App is a..." />
-        </head>
-        <body>
-            // <div id="root"></div>
-            // <script type="module" src="/src/main.tsx"></script>
-            <div id="root">{children}</div>
-        </body>
+            <body>
+                <div id="root">{children}</div>
+            </body>
         </html>
     )
 }
