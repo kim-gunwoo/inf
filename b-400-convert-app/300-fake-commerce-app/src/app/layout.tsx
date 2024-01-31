@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import NavigationBar from '../components/NavigationBar'
 
 export const metadata: Metadata = {
   title: 'Vite + React + TS',
@@ -10,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <div id="root">
           <div className="drawer-content flex flex-col">
+            <NavigationBar />
             {children}
           </div>
         </div>
