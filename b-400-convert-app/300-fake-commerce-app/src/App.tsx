@@ -38,7 +38,7 @@ function ProductList() {
     const fetchData = async () => {
       const response = await fetch(
         // `${import.meta.env.VITE_API_BASE_URL}/products`
-        `${import.meta.env.NEXT_PUBLIC_API_BASE_URL}/products`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`
       )
       const data = await response.json()
       setProducts(data)
@@ -69,7 +69,7 @@ function ProductDetail() {
     const fetchData = async () => {
       const response = await fetch(
         // `${import.meta.env.VITE_API_BASE_URL}/products/${id}`
-        `${import.meta.env.NEXT_PUBLIC_API_BASE_URL}/products/${id}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/${id}`
       )
       const data = await response.json()
       setProduct(data)
