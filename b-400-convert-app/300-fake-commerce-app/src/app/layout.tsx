@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import NavigationBar from '../components/NavigationBar'
+import '../index.css'
 
 export const metadata: Metadata = {
   title: 'Vite + React + TS',
