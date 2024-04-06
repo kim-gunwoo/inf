@@ -5,6 +5,26 @@ import TextField from '@/components/TextField';
 import render from '@/utils/test/render';
 
 /**
+ * setup : beforeEach, beforeAll
+ * teardown : afterEach, afterAll
+ */
+// beforeEach(() => {
+//   console.log('root beforeEach');
+// });
+
+// beforeAll(() => {
+//   console.log('root beforAll');
+// });
+
+// afterEach(() => {
+//   console.log('root afterEach');
+// });
+
+// afterAll(() => {
+//   console.log('root afterAll');
+// });
+
+/**
  * AAA 패턴
  * Arrange - 테스트 환경 세팅
  * Act - 테스트 동작 발생
@@ -30,6 +50,10 @@ it('className prop으로 설정한 css class가 적용된다.', async () => {
  */
 
 describe('placeholder', () => {
+  // beforeEach(() => {
+  //   console.log('placeholder beforeEach');
+  // });
+
   // 기대 결과 === 실제 결과 -> 성공
   // 기대 결과 !== 실제 결과 -> 실패
   it('기본 placeholder "텍스트를 입력해 주세요."가 노출된다.', async () => {
