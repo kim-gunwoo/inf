@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 
 import TextField from '@/components/TextField';
@@ -116,6 +116,15 @@ describe('placeholder', () => {
     const textInput = screen.getByPlaceholderText('텍스트를 입력해 주세요.');
 
     await user.click(textInput);
+    /**
+     * fireEvent
+     * 단순하게 해당 이벤트만 발생시킬뿐 실제 user 클릭 이벤트에서 발생하는 연쇄적으로 발생하는 이벤트에 대해서는 고려되지 않음
+     *
+     * userEvent
+     * disabled, display 상태도 고려되어 더 유사하게 테스트 가능
+     * disabled 된 텍스트 필드는 입력 불가
+     */
+    // await fireEvent.click(textInput);
 
     // await textInput.focus();
 
