@@ -27,12 +27,15 @@ const ProductFilter = () => {
   const handleChangeInput = debounce(ev => {
     setTitle(ev.target.value);
   }, 300);
-  const handleMinPrice = debounce(ev => {
+  // const handleChangeInput = ev => {
+  //   setTitle(ev.target.value);
+  // };
+  const handleMinPrice = ev => {
     setMinPrice(ev.target.value);
-  }, 300);
-  const handleMaxPrice = debounce(ev => {
+  };
+  const handleMaxPrice = ev => {
     setMaxPrice(ev.target.value);
-  }, 300);
+  };
   const handleChangeCategory = ev => {
     setCategoryId(ev.target.value);
   };

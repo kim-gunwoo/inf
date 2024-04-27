@@ -53,7 +53,7 @@ describe('debounce', () => {
      * 테스트 당시의 시간에 의존하는 테스트가 존재할 경우, 시간을 고정하지 않을 경우 테스트가 깨질수 있음
      * setSystemTime으로 시간을 고정하면 일관된 환경에서 테스트 가능
      */
-    vi.setSystemTime(new Date('2024-04-'));
+    vi.setSystemTime(new Date('2024-04-25'));
   });
 
   /**
