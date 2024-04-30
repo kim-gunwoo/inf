@@ -40,7 +40,7 @@ const Forms = () => {
         toast.error('잠시 문제가 발생했습니다! 다시 시도해 주세요.', {
           id: TOAST_ID,
         });
-        console.error(err);
+        // console.error(err);
       },
     });
   });
