@@ -46,7 +46,7 @@ const Forms = () => {
             id: TOAST_ID,
           });
         } else {
-          console.error(err);
+          // console.error(err);
         }
       },
     });
