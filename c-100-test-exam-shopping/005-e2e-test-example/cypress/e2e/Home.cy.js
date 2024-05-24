@@ -6,6 +6,10 @@ const assertProductCardLength = length => {
   cy.findAllByTestId('product-card').should('have.length', length);
 };
 
+const assertProductCardText = (text, index = 0) => {
+  cy.findAllByTestId('product-card').eq(index).findByText(text).should('exist');
+};
+
 it('초기 상품은 20개가 노출된다', () => {
   //   cy.findAllByTestId('product-card').should('have.length', 20);
 
@@ -67,13 +71,47 @@ describe('장바구니 / 구매 버튼', () => {
 });
 
 describe('필터', () => {
-  it('상품명을 "Handmade Cotton"로 입력하면 해당 상품명을 포함한 상품만 나타난다', () => {});
+  it('상품명을 "Handmade Cotton"로 입력하면 해당 상품명을 포함한 상품만 나타난다', () => {
+    cy.findByLabelText('상품명').type('Handmade Cotton');
+    assertProductCardLength(2);
+    assertProductCardText('Handmade Cotton Fish', 0);
+    assertProductCardText('Handmade Cotton Keyboard', 1);
+  });
 
-  it('카테고리를 "Shoes"로 선택할 경우 해당 카테고리 상품만 나타난다', () => {});
+  it('카테고리를 "Shoes"로 선택할 경우 해당 카테고리 상품만 나타난다', () => {
+    cy.findByRole('radio', { name: 'Shoes' }).click();
 
-  it('최소 가격을 "15", 최대 가격을 "20"로 입력한 경우 해당 금액 사이에 있는 상품이 노출된다', () => {});
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
 
-  it('상품명 "Handmade", 카테고리 "Shoes", 최소 금액 "750", 최대 금액 "800"로 입력하면 모든 조건을 충족하는 상품만 노출된다', () => {});
+    cy.findAllByTestId('product-card').each($el => {
+      cy.wrap($el).findByText('Shoes').should('exist');
+    });
+  });
+
+  it('최소 가격을 "15", 최대 가격을 "20"로 입력한 경우 해당 금액 사이에 있는 상품이 노출된다', () => {
+    cy.findByPlaceholderText('최소 금액').type('15');
+    cy.findByPlaceholderText('최대 금액').type('20');
+    assertProductCardLength(1);
+    assertProductCardText('$19.00');
+    assertProductCardText('Elegant Steel Shoes');
+  });
+
+  it('상품명 "Handmade", 카테고리 "Shoes", 최소 금액 "750", 최대 금액 "800"로 입력하면 모든 조건을 충족하는 상품만 노출된다', () => {
+    cy.findByLabelText('상품명').type('Handmade');
+    cy.findByRole('radio', { name: 'Shoes' }).click();
+    cy.findByPlaceholderText('최소 금액').type('750');
+    cy.findByPlaceholderText('최대 금액').type('800');
+
+    assertProductCardLength(1);
+    assertProductCardText('Handmade Soft Chicken');
+    assertProductCardText('Shoes');
+    assertProductCardText('$769.00');
+  });
 });
 
-it('상품을 클릭할 경우 클릭한 상품의 상세 페이지로 이동한다', () => {});
+it('상품을 클릭할 경우 클릭한 상품의 상세 페이지로 이동한다', () => {
+  cy.findAllByTestId('product-card').first().click();
+
+  cy.assertUrl('/product/6');
+});
