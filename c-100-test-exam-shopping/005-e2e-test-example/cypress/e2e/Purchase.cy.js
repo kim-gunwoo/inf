@@ -33,13 +33,45 @@ describe('배송 정보', () => {
       .should('exist');
   });
 
-  it('이름을 입력하지 않고 구매하기 버튼을 클릭할 경우 "이름을 입력하세요" 경고 문구가 노출된다.', () => {});
+  it('이름을 입력하지 않고 구매하기 버튼을 클릭할 경우 "이름을 입력하세요" 경고 문구가 노출된다.', () => {
+    cy.get('@shippingList').eq(0).findByRole('textbox').clear();
 
-  it('주소를 입력하지 않고 구매하기 버튼을 클릭할 경우 "주소를 입력하세요" 경고 문구가 노출된다.', () => {});
+    cy.findByText('구매하기').click();
 
-  it('전화번호를 입력하지 않고 구매하기 버튼을 클릭할 경우 "휴대폰 번호를 입력하세요" 경고 문구가 노출된다.', () => {});
+    cy.get('@shippingList')
+      .eq(0)
+      .findByText('이름을 입력하세요')
+      .should('exist');
+  });
 
-  it('잘못된 전화번호 양식을 입력하고 구매하기 버튼을 클릭할 경우 "-를 포함한 휴대폰 번호만 가능합니다" 경고 문구가 노출된다.', () => {});
+  it('주소를 입력하지 않고 구매하기 버튼을 클릭할 경우 "주소를 입력하세요" 경고 문구가 노출된다.', () => {
+    cy.findByText('구매하기').click();
+
+    cy.get('@shippingList')
+      .eq(1)
+      .findByText('주소를 입력하세요')
+      .should('exist');
+  });
+
+  it('전화번호를 입력하지 않고 구매하기 버튼을 클릭할 경우 "휴대폰 번호를 입력하세요" 경고 문구가 노출된다.', () => {
+    cy.findByText('구매하기').click();
+
+    cy.get('@shippingList')
+      .eq(3)
+      .findByText('휴대폰 번호를 입력하세요')
+      .should('exist');
+  });
+
+  it('잘못된 전화번호 양식을 입력하고 구매하기 버튼을 클릭할 경우 "-를 포함한 휴대폰 번호만 가능합니다" 경고 문구가 노출된다.', () => {
+    cy.findByPlaceholderText('휴대폰 번호를 입력하세요').type('asadfsadf');
+
+    cy.findByText('구매하기').click();
+
+    cy.get('@shippingList')
+      .eq(3)
+      .findByText('-를 포함한 휴대폰 번호만 가능합니다')
+      .should('exist');
+  });
 });
 
 describe('구매 물품', () => {
