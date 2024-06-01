@@ -5,6 +5,8 @@ import { apiRoutes } from '@/apiRoutes';
 
 const API_DOMAIN = 'http://localhost:3000';
 
+// API 호출시 정해진 응답값 반환하도록 구현 -> 스텁
+// 고려된 케이스 이외에는 대응할 수 없음
 export const handlers = [
   ...[
     apiRoutes.users,

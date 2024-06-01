@@ -6,6 +6,7 @@ import * as reactRouterDom from 'react-router-dom';
 import Forms from '@/pages/login/components/Forms';
 import render from '@/utils/test/render';
 
+// vi.fn으로 생성된 함수 -> 스텁이자 스파이
 const navigateFn = vi.fn();
 
 vi.mock('react-router-dom', async () => {
@@ -51,6 +52,8 @@ it('비밀번호 입력하지 않은 상태에서 제출할 경우 "비밀번호
   expect(screen.getByText('비밀번호를 입력하세요')).toBeInTheDocument();
 });
 
+// stubbing: 특정 네트워크 요청에 대해 미리 정해진 응답을 반환하느것
+// spying: 요청과 응답에 대한 호출 정보를 기억해두는 것
 describe('로그인이 성공한 경우', () => {
   it('전달된 access_token을 쿠키에 저장하는 메서드를 호출한다', async () => {
     const { user } = await render(<Forms />);
